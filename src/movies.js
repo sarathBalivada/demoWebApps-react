@@ -1,26 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
-  const name = "Dude" 
-  const user = [{
-    "pic" : "https://media.tenor.com/eFcg2031PT8AAAAC/star-wars-darth-vader.gif",
-    "name" : "Darth Vader",
-  },
-  {
-    "pic" :"https://media0.giphy.com/media/WOb8EeFziTQNE02WXs/giphy.gif",
-      "name" : "GOKU",
-  },
-  {
-    "pic" :"https://media.giphy.com/media/5TByaEWvcVl8A/giphy.gif",
-    "name" : "Bahubali",
-  },
-  {
-    "pic" : "https://i.pinimg.com/280x280_RS/5b/38/f6/5b38f6ee2b6c1a791c88297f8505ecb7.jpg",
-    "name" : "Sarath B",
-  },]
-
   const movies = [
     {
       poster: "https://upload.wikimedia.org/wikipedia/en/d/d7/RRR_Poster.jpg",
@@ -31,7 +12,7 @@ function App() {
     },
     {
       poster:
-        "https://feeds.abplive.com/onecms/images/uploaded-images/2021/07/10/273e787ba809e725948334340c658e68_original.jpg",
+        "https://assets.thehansindia.com/h-upload/2021/07/10/1087622-vikram.webp",
       mname: "VIKRAM",
       summary:
         "A special agent investigates a murder committed by a masked group of serial killers. However, a tangled maze of clues soon leads him to the drug kingpin of Chennai.",
@@ -69,109 +50,32 @@ function App() {
       rating: "8.4",
     },
   ];
-
-
   return (
-    
     <div className="App">
-    
-    
-      {/* <Msg 
-      pic ="https://media.tenor.com/eFcg2031PT8AAAAC/star-wars-darth-vader.gif"
-      name = "Darth Vader"/>
-
-<Msg 
-      pic ="https://media0.giphy.com/media/WOb8EeFziTQNE02WXs/giphy.gif"
-      name = "GOKU"/>
-
-<Msg 
-      pic ="https://media.giphy.com/media/5TByaEWvcVl8A/giphy.gif"
-      name = "Bahubali"/>
-      <Msg 
-      pic ="https://i.pinimg.com/280x280_RS/5b/38/f6/5b38f6ee2b6c1a791c88297f8505ecb7.jpg"
-      name = "Sarath B"/> */}
-
-      {/* {user.map(({name,pic}) => (
-        <Welcome name = {name} pic = {pic}/>
-      ))} */}
-
-{/* <Counter /> */}
-
-<div className = "movie-list">
-{movies.map(({ poster, mname, summary, rating }) => (
+      {movies.map(({ poster, mname, summary, rating }) => (
         <Movielist
           poster={poster}
-          mname={mname} 
+          mname={mname}
           summary={summary}
           rating={rating}
         />
       ))}
     </div>
-    </div>
-     
-  );
- 
-
-}
-
-
-function Msg({name, pic}) {
-  return (
-    <div>
-      <img height="300" src={pic} />
-      <h1 className="name">Hi, {name} 😊!!!</h1>
-    </div>
-    
   );
 }
-
-function Welcome({name, pic}) {
-  return (
-    <div>
-      <img height="300" src={pic} />
-      <h1 className="name">Hi, {name} 😊!!!</h1>
-    </div>
-    
-  );
-}
-
-
 
 function Movielist({ poster, mname, summary, rating }) {
   return (
-    <div className = "movie-container">
-      <img className = "movie-poster" src={poster} />
-      <div className = "movie-spec">
-      <h3 className="mname">{mname}</h3>
-      <p className="rating">
-        <b>IMDB: ⭐{rating}</b>
-      </p>
-      </div>
-     
+    <div>
+      <img height="350" src={poster} />
+      <h1 className="mname">{mname}</h1>
       <p className="summary">{summary}</p>
-      
+      <p className="rating">
+        {" "}
+        <b>IMDB rating: ⭐{rating}</b>
+      </p>
     </div>
   );
 }
-
-// hook - if it is a hook (function), it will start with "use";
-function Counter() {
-  const [like, setLike] = useState(0);
-  const [dislike, setDislike] = useState(0);
-  // Initial Value for like
-  // setLike is the function that will help to update like
-  return (
-      <div>
-      <button onClick={() => setLike(like + 1)}>👍 {like}</button>
-      <button onClick={() => setDislike(dislike + 1)}>👎 {dislike}</button>
-      
-      </div>
-  );
-
-}
-
-
-
-
 
 export default App;
