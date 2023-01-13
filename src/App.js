@@ -147,9 +147,8 @@ function Movielist({ poster, mname, summary, rating }) {
         <b>IMDB: ⭐{rating}</b>
       </p>
       </div>
-     
       <p className="summary">{summary}</p>
-      
+      <Counter />
     </div>
   );
 }
