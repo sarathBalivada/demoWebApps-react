@@ -65,7 +65,7 @@ function App() {
         "https://m.media-amazon.com/images/M/MV5BZTk5ODdhMzYtNTIzZi00MTY4LTgwOWQtODgzYTdhZDRjM2IwXkEyXkFqcGdeQXVyOTY3OTAzOTQ@._V1_.jpg",
       mname: "KANTAARA",
       summary:
-        "A man from When greed paves the way for betrayal, scheming and murder, a young tribal reluctantly dons the traditions of his ancestors to seek justice.orthodox Hindu family trains his girlfriend to pretend to be a Brahmin so that his family will accept her.",
+        "A man from When greed paves the way for betrayal, scheming and murder, a young tribal reluctantly dons the traditions of his ancestors to seek justice.",
       rating: "8.4",
     },
   ];
