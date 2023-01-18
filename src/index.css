@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(239, 239, 239);
+
 }
 /* 
 code {
@@ -23,7 +25,10 @@ code {
 } */
 
 
+
+
 .movie-list {
+  margin: 20px;
   display: flex;
   flex-direction: row;
 
@@ -36,10 +41,12 @@ code {
 }
 
 .movie-container {
+
   width: 300px;
  
   /* background-color: crimson; */
 }
+
 
 
 .movie-spec {
@@ -54,8 +61,20 @@ code {
   object-fit : cover;
 }
 
-
+.addMovies {
+  height: 300px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 50px;
+}
 
 /* @media (min-width: 300px) {
   .Apps { grid-template-columns: repeat(2, 1fr); }
 } */
+
+.Card {
+  display: flex;
+  justify-content: center;
+}
