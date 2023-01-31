@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
-import "./App.css";
+import './movies.css';
+
 import { useState } from "react";
 import SvgIcon from "@mui/material/SvgIcon";
 import Button from "@mui/material/Button";
@@ -10,7 +10,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
  export function ColorList() {
     const [bColor, setbColor] = useState();
     const styles = { backgroundColor: bColor, color: "black" };
-    const Initial_colors = ["orange"];
+    const Initial_colors = ["orange", "red", "yellow", "violet"];
     const [colors, setColors] = useState(Initial_colors);
     return (
       <div>

@@ -1,62 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState } from "react";
+import Movies from "./Movies";
+import CodeCamp from "./Codecamp";
+import React from "react";
+
+import TaskTracker from "./TaskTracker";
+import { ColorBox } from "./ColorBox";
+import Context from "./components/Context";
+
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+
+import TestingRouter from "./TestingRouter";
 
 function App() {
-  const name = "Dude" 
-  const user = [{
-    "pic" : "https://media.tenor.com/eFcg2031PT8AAAAC/star-wars-darth-vader.gif",
-    "name" : "Darth Vader",
-  },
-  {
-    "pic" :"https://media0.giphy.com/media/WOb8EeFziTQNE02WXs/giphy.gif",
-      "name" : "GOKU",
-  },
-  {
-    "pic" :"https://media.giphy.com/media/5TByaEWvcVl8A/giphy.gif",
-    "name" : "Bahubali",
-  },
-  {
-    "pic" : "https://i.pinimg.com/280x280_RS/5b/38/f6/5b38f6ee2b6c1a791c88297f8505ecb7.jpg",
-    "name" : "Sarath B",
-  },]
 
- 
-
+   {/* <Context /> */}
 
   return (
+     <div>
+     
+         <Movies />
+     
+      
+     </div>
     
-    <div className="App">
-    
-    
-      {/* <Msg 
-      pic ="https://media.tenor.com/eFcg2031PT8AAAAC/star-wars-darth-vader.gif"
-      name = "Darth Vader"/>
-
-<Msg 
-      pic ="https://media0.giphy.com/media/WOb8EeFziTQNE02WXs/giphy.gif"
-      name = "GOKU"/>
-
-<Msg 
-      pic ="https://media.giphy.com/media/5TByaEWvcVl8A/giphy.gif"
-      name = "Bahubali"/>
-      <Msg 
-      pic ="https://i.pinimg.com/280x280_RS/5b/38/f6/5b38f6ee2b6c1a791c88297f8505ecb7.jpg"
-      name = "Sarath B"/> */}
-
-      {/* {user.map(({name,pic}) => (
-        <Welcome name = {name} pic = {pic}/>
-      ))} */}
-
-{/* <Counter /> */}
-
-</div> 
   );
 }
-
-
-
-
-
 
 export default App;

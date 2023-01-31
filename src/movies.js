@@ -1,9 +1,10 @@
-import logo from "./logo.svg";
-import "./App.css";
+import "./movies.css";
+
 import { ColorBox } from "./ColorBox";
 import { ColorList } from "./ColorBox";
-import { useState } from "react";
-import SvgIcon from "@mui/material/SvgIcon";
+import { useState, useEffect } from "react";
+import MovieDetails from "./components/movies/MovieDetails";
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -18,90 +19,158 @@ import IconButton from "@mui/material/IconButton";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import MovieIcon from '@mui/icons-material/Movie';
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import MovieIcon from "@mui/icons-material/Movie";
+
+import InfoIcon from "@mui/icons-material/Info";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+
+import {
+  Routes,
+  Route,
+  Link as a,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+
+import TaskTracker from "./TaskTracker";
+import Box from "@mui/material/Box";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 
 function Movies() {
+  const navigate = useNavigate();
+  const [dTheme, setTheme] = useState(true);
+
+  let theme = createTheme(
+    {
+      palette: {
+        mode: `${dTheme ? "light" : "dark"}`,
+      },
+    },
+    []
+  );
+
   return (
-    <div className="Movies">
-      <MovieList />
-      {/* <ColorList /> */}
-    </div>
+    <ThemeProvider theme={theme}>
+      <Paper style={{ minHeight: "100vh" }} elevation={4}>
+        <div>
+          <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+              <Toolbar>
+                <Button onClick={() => navigate("/")} color="inherit">
+                  Home
+                </Button>
+                <Button onClick={() => navigate("/movies")} color="inherit">
+                  Movies
+                </Button>
+                <Button
+                  onClick={() => navigate("/colorlist")}
+                  color="inherit"
+                >
+                  Color Box
+                </Button>
+                <Button onClick={() => navigate("/task")} color="inherit">
+                  Daily Tasks
+                </Button>
+                <Button
+                  onClick={() => navigate("/movies/:id")}
+                  color="inherit"
+                >
+                  Details
+                </Button>
+
+                <Button
+                  startIcon={dTheme ? <DarkModeIcon /> : <LightModeIcon />}
+                  style={{ marginLeft: "auto" }}
+                  aria-label={dTheme ? "light" : "dark"}
+                  onClick={() => setTheme(!dTheme)}
+                  color="inherit"
+                >
+                  {dTheme ? "Dark" : "Light"} mode
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </Box>
+          <br />
+          {/* <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/moviedetails">details</a>
+        </li>
+          <li>
+          <a href="/colorlist">Color list</a>
+        </li>
+        <li>
+          <a href="/movies">movies</a>
+        </li>
+
+        <li>
+          <a href="/task">Daily Tasks</a>
+        </li>
+      </ul> */}
+
+          <Routes>
+            <Route exact path="/" element={ <Welcome />} />
+            <Route path="/movies/" element={ <MovieList /> }  /> 
+            <Route path="/moviedetails" element={ <MovieDetails />} />
+            <Route path="/movies/:id" element={ <MovieDetails />} /> 
+            <Route path="/colorlist" element={ <ColorList />} />
+            <Route path="/task/*" element={ <TaskTracker />} />
+            <Route path="*/*" element={ <NotFound />} />
+          </Routes>
+        </div>
+      </Paper>
+    </ThemeProvider>
   );
 }
 
+// Welcome componet
+function Welcome() {
+  return <h1> Welcome Home</h1>;
+}
 
+// 404: not found
+function NotFound() {
+  return (
+    <img src="https://miro.medium.com/max/1400/1*DeBkx8vjbumpCO-ZkPE9Cw.png"></img>
+  );
+}
 
 // Add movie list
 
-
 function MovieList() {
-  const initial_movies = [
-    {
-      poster:
-        "https://imageio.forbes.com/specials-images/imageserve/6244301dbcea8044ecc7b3b0/A-poster-of-SS-Rajamouli-s--RRR--/0x0.jpg?format=jpg&crop=2471,1852,x0,y330,safe&width=960",
-      mname: "RRR",
-      summary:
-        "A fearless revolutionary and an officer in the British force, who once shared a deep bond, decide to join forces and chart out an inspirational path of freedom against the despotic rulers.",
-      rating: "7.9/10",
-    },
-    {
-      poster:
-        "https://feeds.abplive.com/onecms/images/uploaded-images/2021/07/10/273e787ba809e725948334340c658e68_original.jpg",
-      mname: "VIKRAM",
-      summary:
-        "A special agent investigates a murder committed by a masked group of serial killers. However, a tangled maze of clues soon leads him to the drug kingpin of Chennai.",
-      rating: "8.3",
-    },
-    {
-      poster:
-        "https://media5.bollywoodhungama.in/wp-content/uploads/2017/03/Bahubali-2-The-Conclusion.jpg",
-      mname: "BAHUBALI-2",
-      summary:
-        "After learning that his father was brutally killed by Bhallaladeva, Mahendra Baahubali raises an army to defeat him and release his mother from the former's captivity.",
-      rating: "8.2",
-    },
-    {
-      poster:
-        "https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg",
-      mname: "AVATAR-2",
-      summary:
-        "Jake Sully and Ney'tiri have formed a family and are doing everything to stay together. However, they must leave their home and explore the regions of Pandora. When an ancient threat resurfaces, Jake must fight a difficult war against the humans.",
-      rating: "7.9",
-    },
-    {
-      poster: "https://m.media-amazon.com/images/I/71o1aRN1FJL._SL1100_.jpg",
-      mname: "FIGHT CLUB",
-      summary: `Unhappy with his capitalistic lifestyle, a white-collared insomniac forms an underground fight club with Tyler, a careless soap salesman. Soon, their venture spirals down into something sinister.
-      `,
-      rating: "8.8",
-    },
-    {
-      poster:
-        "https://m.media-amazon.com/images/M/MV5BMjE3NTgzNDg1Ml5BMl5BanBnXkFtZTYwODE4Mjg4._V1_.jpg",
-      mname: `BEFORE SUNRISE`,
-      summary: `While travelling on a train in Europe, Jesse, an American man, meets Celine, a French woman. On his last day in Europe before returning to the US, he decides to spend his remaining hours with her.`,
-      rating: "8.1",
-    },
-    {
-      poster:
-        "https://m.media-amazon.com/images/M/MV5BNTYxYzIyZmYtMjAxMi00MWU2LWFiYTgtM2VlMjQ1YmYyYTcwXkEyXkFqcGdeQXVyMjk5MDYzMDA@._V1_.jpg",
-      mname: `E NAGARANIKI EMAINDHI`,
-      summary: `Childhood friends Vivek, Karthik, Kaushik, and Uppi hope for careers in film-making during university but eventually give up and settle into other jobs. To earn money for a wedding, they enter Goa Short film festival and rekindle their dream.
-      `,
-      rating: "7.9",
-    },
-  ];
   const [mname, setName] = useState(" ");
   const [poster, setPoster] = useState(" ");
   const [rating, setRating] = useState(" ");
   const [summary, setSummary] = useState(" ");
-  const [movies, setMovies] = useState(initial_movies);
+  const [movies, setMovies] = useState([]);
+  const navigate = useNavigate();
+  const urlMovies = `https://63ad96993e465169165e7345.mockapi.io/movies`;
+  // Fetch the data from mock api
+  useEffect(() => {
+    
+    fetch(urlMovies)
+      .then((data) => data.json())
+      .then((mve) => setMovies(mve))
+      .catch((error) => console.log(error));
+  }, []);
+
+  let newMovie = { poster, mname, rating, summary };
+
+
 
   return (
     <div>
-      <Card className = "Card">
+      <Card className="Card">
         <form className="addMovies">
           <h2>ADD MOVIE DETAILS</h2>
           <TextField
@@ -136,7 +205,16 @@ function MovieList() {
           <Button
             variant="contained"
             onClick={() => {
-              let newMovie = { poster, mname, rating, summary };
+                // Add movie to api by fetch
+  fetch(urlMovies,{
+    method : "POST",
+    body : JSON.stringify(newMovie),
+    headers : {
+      "Content-Type" :  "application/json"
+    },
+  })
+  .then(() => navigate("/movies"))
+             
               setMovies([...movies, newMovie]);
               setName("");
               setPoster("");
@@ -144,10 +222,13 @@ function MovieList() {
               setSummary("");
             }}
           >
-           <b>Add</b>  <MovieIcon />
+            <b>Add</b> <MovieIcon />
           </Button>
         </form>
-        <img className="movies" src= 'https://media.istockphoto.com/id/911590226/vector/movie-time-vector-illustration-cinema-poster-concept-on-red-round-background-composition-with.jpg?s=612x612&w=0&k=20&c=QMpr4AHrBgHuOCnv2N6mPUQEOr5Mo8lE7TyWaZ4r9oo=' />
+        <img
+          className="movies"
+          src="https://media.istockphoto.com/id/911590226/vector/movie-time-vector-illustration-cinema-poster-concept-on-red-round-background-composition-with.jpg?s=612x612&w=0&k=20&c=QMpr4AHrBgHuOCnv2N6mPUQEOr5Mo8lE7TyWaZ4r9oo="
+        />
       </Card>
 
       <div className="movie-list">
@@ -159,6 +240,10 @@ function MovieList() {
             mname={mv.mname}
             summary={mv.summary}
             rating={mv.rating}
+            id={mv.id}
+            setMovies={setMovies}
+            movies={movies}
+            trailer = {mv.trailer}
           />
         ))}
       </div>
@@ -166,36 +251,70 @@ function MovieList() {
   );
 }
 
-function Movielist({ poster, mname, summary, rating }) {
+function Movielist(movies, setMovies) {
+  // const id = movies.id;
   const [show, setShow] = useState(true);
+  const navigate = useNavigate();
 
-  // Conditional Styling
-  // const styles = {display: show? "block" : "none"}
+  const deleteMovie = ({ movies, id, setMovies }) => {
+        const urlMovies = `https://63ad96993e465169165e7345.mockapi.io/movies/${id}`;
+        // console.log(id);
+        fetch(urlMovies,
+           {
+          method : "DELETE",
+        })
+          .then(() => setMovies())
+    
+    // const remainingMovies = movies.filter((mv, index) => index !== id);
+    // setMovies(remainingMovies);
+  };
+
   return (
     <Card>
       <div className="movie-container">
-        <img className="movie-poster" src={poster} />
+        <img className="movie-poster" src={movies.poster} />
         <CardContent>
           <div className="movie-spec">
-            <h3 className="mname">{mname}
-            <IconButton color="primary" aria-label={show ? "Hide" : "Show"} onClick={() => setShow(!show)}>
-          {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}  
-          </IconButton>
-          </h3>
-           
+            <h3 className="mname">
+              {movies.mname}
+              <IconButton
+                color="primary"
+                aria-label="movie-details"
+                onClick={() =>{
+                    navigate(`/movies/${movies.id}`)
+                } }
+              >
+                <InfoIcon />
+              </IconButton>
+              <IconButton
+                color="primary"
+                aria-label={show ? "Hide" : "Show"}
+                onClick={() => setShow(!show)}
+              >
+                {show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </IconButton>
+            </h3>
+
             <p className="rating">
-              <b>IMDB: ⭐{rating}</b>
+              <b>IMDB: ⭐{movies.rating}</b>
             </p>
           </div>
-         
+
           {/* <Button variant="contained" onClick={() => setShow(!show)}>
             {show ? "Hide" : "Show"} Description
           </Button> */}
 
           {/* Conditional Rendering */}
-          {show ? <p className="summary">{summary}</p> : ""}
+          {show ? <p className="summary">{movies.summary}</p> : ""}
           <CardActions>
             <Counter />
+            <IconButton
+              color="error"
+              aria-label="Delete Item"
+              onClick={() => deleteMovie(movies, setMovies)}
+            >
+              <DeleteIcon />
+            </IconButton>
           </CardActions>
         </CardContent>
       </div>
@@ -217,9 +336,13 @@ function Counter() {
         variant="outlined"
         aria-label="outlined button group"
       >
-        <Button onClick={() => setLike(like + 1)}><ThumbUpIcon /></Button>
+        <Button onClick={() => setLike(like + 1)}>
+          <ThumbUpIcon />
+        </Button>
         <Badge badgeContent={like} color="success"></Badge>
-        <Button onClick={() => setDislike(dislike + 1)}><ThumbDownIcon /></Button>
+        <Button onClick={() => setDislike(dislike + 1)}>
+          <ThumbDownIcon />
+        </Button>
         <Badge badgeContent={dislike} color="error"></Badge>
       </ButtonGroup>
     </div>
