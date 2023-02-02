@@ -4,6 +4,7 @@ import { ColorBox } from "./ColorBox";
 import { ColorList } from "./ColorBox";
 import { useState, useEffect } from "react";
 import MovieDetails from "./components/movies/MovieDetails";
+import Tictactoe from "./components/game/Tictactoe";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -46,7 +47,7 @@ import Paper from "@mui/material/Paper";
 
 function Movies() {
   const navigate = useNavigate();
-  const [dTheme, setTheme] = useState(true);
+  const [dTheme, setTheme] = useState(false);
 
   let theme = createTheme(
     {
@@ -67,6 +68,9 @@ function Movies() {
                 <Button onClick={() => navigate("/")} color="inherit">
                   Home
                 </Button>
+                <Button onClick={() => navigate("/task")} color="inherit">
+                  Daily Tasks
+                </Button>
                 <Button onClick={() => navigate("/movies")} color="inherit">
                   Movies
                 </Button>
@@ -76,14 +80,12 @@ function Movies() {
                 >
                   Color Box
                 </Button>
-                <Button onClick={() => navigate("/task")} color="inherit">
-                  Daily Tasks
-                </Button>
+            
                 <Button
-                  onClick={() => navigate("/movies/:id")}
+                  onClick={() => navigate("/tictactoe")}
                   color="inherit"
                 >
-                  Details
+                  GAME
                 </Button>
 
                 <Button
@@ -125,6 +127,7 @@ function Movies() {
             <Route path="/movies/:id" element={ <MovieDetails />} /> 
             <Route path="/colorlist" element={ <ColorList />} />
             <Route path="/task/*" element={ <TaskTracker />} />
+            <Route path="/tictactoe" element={ <Tictactoe />} />
             <Route path="*/*" element={ <NotFound />} />
           </Routes>
         </div>
@@ -135,7 +138,20 @@ function Movies() {
 
 // Welcome componet
 function Welcome() {
-  return <h1> Welcome Home</h1>;
+  return ( 
+    <div className="home">
+      <h2> WELCOME</h2>
+      <p>Explore my demo web projects.<br/>listed below :</p>
+      <ul>
+        <li>Daily Tasks</li>
+        <li>Movies</li>
+        <li>Color Box</li>
+        <li>Game - TictacToe</li>
+      </ul>
+      <br/>
+      <h3>Hope you Enjoyed it!</h3>
+    </div>
+   )
 }
 
 // 404: not found

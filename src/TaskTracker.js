@@ -18,14 +18,14 @@ function TaskTracker() {
     const getTasks = async () => {
       const taskFromServer = await fetchTasks();
       setTasks(taskFromServer);
+     
     };
-
     getTasks();
   }, []);
 
   // fetch data from json server
   const fetchTasks = async () => {
-    const res = await fetch("http://localhost:5000/tasks");
+    const res = await fetch("https://63ad96993e465169165e7345.mockapi.io/tasks");
     const data = await res.json();
 
     return data;
@@ -38,9 +38,11 @@ function TaskTracker() {
   //   return data;
   // };
 
+
+  // `http://localhost:5000/tasks`
   // Add Task
   const addTask = async (task) => {
-    const res = await fetch(`http://localhost:5000/tasks`, {
+    const res = await fetch(`https://63ad96993e465169165e7345.mockapi.io/tasks`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -58,7 +60,7 @@ function TaskTracker() {
 
   // Delete tasks
   const deleteTask = async (id) => {
-    await fetch(`http://localhost:5000/tasks/${id}`, {
+    await fetch(`https://63ad96993e465169165e7345.mockapi.io/tasks/${id}`, {
       method: "DELETE",
     });
     setTasks(tasks.filter((task) => task.id !== id));
@@ -82,6 +84,16 @@ function TaskTracker() {
           onAdd={() => setShowAddTask(!showAddTask)}
           showAdd={showAddTask}
         />
+         {showAddTask && <AddTask onAdd={addTask} />}
+              {tasks.length > 0 ? (
+                <Tasks
+                  tasks={tasks}
+                  onToggle={toggleReminder}
+                  onDelete={deleteTask}
+                />
+              ) : (
+                <h2> None</h2>
+              )}
         <Routes>
         <Route
           path="/task"

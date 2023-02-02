@@ -13,7 +13,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
     const Initial_colors = ["orange", "red", "yellow", "violet"];
     const [colors, setColors] = useState(Initial_colors);
     return (
-      <div>
+      <div className="color-list">
         <TextField
           label="Enter Color"
           variant="outlined"
