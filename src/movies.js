@@ -69,22 +69,16 @@ function Movies() {
                   Home
                 </Button>
                 <Button onClick={() => navigate("/task")} color="inherit">
-                  Daily Tasks
+                  Task-Tracker
                 </Button>
                 <Button onClick={() => navigate("/movies")} color="inherit">
                   Movies
                 </Button>
-                <Button
-                  onClick={() => navigate("/colorlist")}
-                  color="inherit"
-                >
+                <Button onClick={() => navigate("/colorlist")} color="inherit">
                   Color Box
                 </Button>
-            
-                <Button
-                  onClick={() => navigate("/tictactoe")}
-                  color="inherit"
-                >
+
+                <Button onClick={() => navigate("/tictactoe")} color="inherit">
                   GAME
                 </Button>
 
@@ -121,14 +115,14 @@ function Movies() {
       </ul> */}
 
           <Routes>
-            <Route exact path="/" element={ <Welcome />} />
-            <Route path="/movies/" element={ <MovieList /> }  /> 
-            <Route path="/moviedetails" element={ <MovieDetails />} />
-            <Route path="/movies/:id" element={ <MovieDetails />} /> 
-            <Route path="/colorlist" element={ <ColorList />} />
-            <Route path="/task/*" element={ <TaskTracker />} />
-            <Route path="/tictactoe" element={ <Tictactoe />} />
-            <Route path="*/*" element={ <NotFound />} />
+            <Route exact path="/" element={<Welcome />} />
+            <Route path="/movies/" element={<MovieList />} />
+            <Route path="/moviedetails" element={<MovieDetails />} />
+            <Route path="/movies/:id" element={<MovieDetails />} />
+            <Route path="/colorlist" element={<ColorList />} />
+            <Route path="/task/*" element={<TaskTracker />} />
+            <Route path="/tictactoe" element={<Tictactoe />} />
+            <Route path="*/*" element={<NotFound />} />
           </Routes>
         </div>
       </Paper>
@@ -138,20 +132,24 @@ function Movies() {
 
 // Welcome componet
 function Welcome() {
-  return ( 
+  return (
     <div className="home">
       <h2> WELCOME</h2>
-      <p>Explore my demo web projects.<br/>listed below :</p>
+      <p>
+        Explore my demo web projects.
+        <br />
+        listed below :
+      </p>
       <ul>
-        <li>Daily Tasks</li>
+        <li>Tasks Tracker</li>
         <li>Movies</li>
         <li>Color Box</li>
         <li>Game - TictacToe</li>
       </ul>
-      <br/>
+      <br />
       <h3>Hope you Enjoyed it!</h3>
     </div>
-   )
+  );
 }
 
 // 404: not found
@@ -173,7 +171,6 @@ function MovieList() {
   const urlMovies = `https://63ad96993e465169165e7345.mockapi.io/movies`;
   // Fetch the data from mock api
   useEffect(() => {
-    
     fetch(urlMovies)
       .then((data) => data.json())
       .then((mve) => setMovies(mve))
@@ -181,8 +178,6 @@ function MovieList() {
   }, []);
 
   let newMovie = { poster, mname, rating, summary };
-
-
 
   return (
     <div>
@@ -221,16 +216,15 @@ function MovieList() {
           <Button
             variant="contained"
             onClick={() => {
-                // Add movie to api by fetch
-  fetch(urlMovies,{
-    method : "POST",
-    body : JSON.stringify(newMovie),
-    headers : {
-      "Content-Type" :  "application/json"
-    },
-  })
-  .then(() => navigate("/movies"))
-             
+              // Add movie to api by fetch
+              fetch(urlMovies, {
+                method: "POST",
+                body: JSON.stringify(newMovie),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }).then(() => navigate("/movies"));
+
               setMovies([...movies, newMovie]);
               setName("");
               setPoster("");
@@ -259,7 +253,7 @@ function MovieList() {
             id={mv.id}
             setMovies={setMovies}
             movies={movies}
-            trailer = {mv.trailer}
+            trailer={mv.trailer}
           />
         ))}
       </div>
@@ -273,14 +267,12 @@ function Movielist(movies, setMovies) {
   const navigate = useNavigate();
 
   const deleteMovie = ({ movies, id, setMovies }) => {
-        const urlMovies = `https://63ad96993e465169165e7345.mockapi.io/movies/${id}`;
-        // console.log(id);
-        fetch(urlMovies,
-           {
-          method : "DELETE",
-        })
-          .then(() => setMovies())
-    
+    const urlMovies = `https://63ad96993e465169165e7345.mockapi.io/movies/${id}`;
+    // console.log(id);
+    fetch(urlMovies, {
+      method: "DELETE",
+    }).then(() => setMovies());
+
     // const remainingMovies = movies.filter((mv, index) => index !== id);
     // setMovies(remainingMovies);
   };
@@ -296,9 +288,9 @@ function Movielist(movies, setMovies) {
               <IconButton
                 color="primary"
                 aria-label="movie-details"
-                onClick={() =>{
-                    navigate(`/movies/${movies.id}`)
-                } }
+                onClick={() => {
+                  navigate(`/movies/${movies.id}`);
+                }}
               >
                 <InfoIcon />
               </IconButton>
